@@ -3,8 +3,9 @@ import { Server } from "socket.io";
 import http from "http";
 import dotenv from "dotenv";
 import gameHost from "./socketAPI/gameHost";
-import passport from "passport";
 import mongoose from "mongoose";
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -14,8 +15,9 @@ import { errorHandler } from "./utils/errorHandler";
 const app = express();
 const server = http.createServer(app);
 
+app.use(cookieParser());
 app.use(express.json());
-app.use(passport.initialize());
+app.use(cors());
 
 app.use("/users", authenticate);
 

@@ -61,18 +61,20 @@ export default class RouletteGameHost {
   }
 
   private GameStart() {
-    return new Promise<void>(() => {
+    return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         this.io.emit("RouletteStart", { hash: this.currentState.hash });
+        return resolve();
       }, 15000);
     });
   }
 
   private GameEnd() {
-    return new Promise<void>(() => {
+    return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         this.io.emit("RouletteEnd", this.currentState);
         this.currentState = this.generateNewGame();
+        return resolve();
       }, 25000);
     });
   }
