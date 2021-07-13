@@ -5,7 +5,7 @@ export default function gameHost(io: Server) {
   const roulette = new RouletteGameHost(io);
   io.on("connection", (socket: Socket) => {
     //Register all game listeners here
-    console.log("conencted");
+    console.log("connected");
     roulette.Listen(socket);
   });
 }

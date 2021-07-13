@@ -10,7 +10,7 @@ export interface User {
 
 interface IUserSchema {
   username: String;
-  _id?:String,
+  _id?: String;
   password?: String;
   hash?: String;
   salt?: String;
@@ -28,9 +28,9 @@ interface IUserModel extends mongoose.Model<UserDocument> {
 }
 
 export interface UserDocument extends mongoose.Document {
-  id:String,
+  id: String;
   username: String;
-  balance?: String;
+  balance?: number;
   admin?: String;
 }
 
@@ -94,8 +94,8 @@ User.statics.authenticate = async (user: IUserSchema) => {
     return {
       id: foundUser._id,
       username: foundUser.username,
-      balance: foundUser.balance?.toString(),
-      admin: foundUser.admin
+      balance: parseFloat(foundUser.balance?.toString()!),
+      admin: foundUser.admin,
     } as UserDocument;
   }
 };
