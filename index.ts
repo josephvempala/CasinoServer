@@ -4,8 +4,8 @@ import http from "http";
 import dotenv from "dotenv";
 import gameHost from "./socketAPI/gameHost";
 import mongoose from "mongoose";
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ const server = http.createServer(app);
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({credentials: true, origin: true}));
+app.use(cors({ credentials: true, origin: true }));
 
 app.use("/users", authenticate);
 
@@ -27,6 +27,7 @@ const socketServer = new Server(server, {
   cors: {
     origin: "http://localhost:3001",
   },
+  transports : ['websocket']
 });
 
 gameHost(socketServer);

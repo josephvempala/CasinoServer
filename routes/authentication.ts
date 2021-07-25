@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import UserModel from "../models/User";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { getToken, verifyAdmin, verifyUser } from "../utils/authentication";
 
 const router = express.Router();
@@ -57,14 +57,15 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.get('/checkToken', async (req,res,next)=>{
-  if(!req.cookies.token)
-    return res.status(204).json({ token: null });
-  try{
-    const payload = jwt.verify(req.cookies.token, process.env.SECRETKEY!) as jwt.JwtPayload;
-    return res.status(200).json({token:req.cookies.token});
-  }
-  catch (err) {
+router.get("/checkToken", async (req, res, next) => {
+  if (!req.cookies.token) return res.status(204).json({ token: null });
+  try {
+    const payload = jwt.verify(
+      req.cookies.token,
+      process.env.SECRETKEY!
+    ) as jwt.JwtPayload;
+    return res.status(200).json({ token: req.cookies.token });
+  } catch (err) {
     next(err);
   }
 });
